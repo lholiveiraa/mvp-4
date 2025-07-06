@@ -19,3 +19,11 @@ cd frontend
 npm install
 ```
 
+### Testes
+
+Execute os testes automatizados com o `pytest` na raiz do projeto:
+
+```bash
+pytest
+```
+

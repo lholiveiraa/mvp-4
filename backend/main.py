@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import joblib
 import numpy as np
+import pandas as pd
 import os
 
 app = FastAPI()
@@ -40,14 +41,24 @@ class PatientData(BaseModel):
 def predict(data: PatientData):
     try:
         # Organiza os dados na mesma ordem usada no treino
-        input_data = [[
-            data.Age, data.RestingBP, data.Cholesterol, data.FastingBS,
-            data.MaxHR, data.Oldpeak, data.Sex, data.ChestPainType,
-            data.RestingECG, data.ExerciseAngina, data.ST_Slope
-        ]]
+        input_df = pd.DataFrame([
+            {
+                "Age": data.Age,
+                "RestingBP": data.RestingBP,
+                "Cholesterol": data.Cholesterol,
+                "FastingBS": data.FastingBS,
+                "MaxHR": data.MaxHR,
+                "Oldpeak": data.Oldpeak,
+                "Sex": data.Sex,
+                "ChestPainType": data.ChestPainType,
+                "RestingECG": data.RestingECG,
+                "ExerciseAngina": data.ExerciseAngina,
+                "ST_Slope": data.ST_Slope,
+            }
+        ])
 
         # Faz a predição
-        prediction = model.predict(input_data)[0]
+        prediction = model.predict(input_df)[0]
         return {"prediction": int(prediction)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
