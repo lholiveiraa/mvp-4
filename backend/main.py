@@ -3,11 +3,15 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import joblib
 import numpy as np
+import os
 
 app = FastAPI()
 
 # Carrega o modelo treinado
-model = joblib.load("melhor_modelo.pkl")
+# O caminho relativo depende de onde o servidor é iniciado, então
+# calculamos o caminho absoluto baseado neste arquivo.
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "melhor_modelo.pkl")
+model = joblib.load(MODEL_PATH)
 
 # Define o schema dos dados esperados (exemplo simplificado)
 class PatientData(BaseModel):
