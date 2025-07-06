@@ -1,5 +1,10 @@
 # MVP-4
 
+Este projeto é uma aplicação web para predição de doença cardíaca.
+O backend em FastAPI carrega um modelo de machine learning e oferece uma rota `/predict`.
+O frontend, feito em React, permite enviar os dados do paciente e visualizar o resultado.
+O objetivo e demonstrar um MVP integrando modelo de ML, API e interface web.
+
 ## Setup
 
 ### Backend
