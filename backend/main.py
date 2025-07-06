@@ -2,12 +2,33 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from fastapi.openapi.utils import get_openapi
 import joblib
 import numpy as np
 import pandas as pd
 import os
 
-app = FastAPI()
+app = FastAPI(
+    title="MVP-4 API",
+    description="API para predi\u00e7\u00e3o de doen\u00e7a card\u00edaca",
+    version="1.0.0",
+)
+
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+
+app.openapi = custom_openapi
 
 # Permite que aplicações front-end em outros domínios/acessos consumam a API
 app.add_middleware(
