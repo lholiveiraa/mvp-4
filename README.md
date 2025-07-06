@@ -19,7 +19,19 @@ cd frontend
 npm install
 ```
 
-### Testes
+## Execução
+
+Abra dois terminais para iniciar backend e frontend separadamente:
+
+```bash
+# Backend
+uvicorn backend.main:app --reload
+
+# Frontend
+cd frontend && npm run dev
+```
+
+## Testes
 
 Execute os testes automatizados com o `pytest` na raiz do projeto:
 
