@@ -1,11 +1,20 @@
 # backend/main.py
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import joblib
 import numpy as np
 import os
 
 app = FastAPI()
+
+# Permite que aplicações front-end em outros domínios/acessos consumam a API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Carrega o modelo treinado
 # O caminho relativo depende de onde o servidor é iniciado, então
